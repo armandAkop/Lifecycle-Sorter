@@ -13,16 +13,17 @@ public class SortAction extends AnAction {
     @Override
     public void actionPerformed(AnActionEvent e) {
 
-
         PsiClass psiClass = getPsiClassFromContext(e);
 
-        fortmatText(psiClass);
-        return;
+        if (psiClass != null) {
+            sortLifecycleMethods(psiClass);
+        }
+
     }
 
 
 
-    private void fortmatText(final PsiClass psiClass) {
+    private void sortLifecycleMethods(final PsiClass psiClass) {
         new WriteCommandAction.Simple(psiClass.getProject(), psiClass.getContainingFile()) {
             @Override
             protected void run() throws Throwable {
@@ -35,7 +36,10 @@ public class SortAction extends AnAction {
     }
 
 
-
+    /**
+     * @param e the action event that occurred
+     * @return The PSIClass object based on which class your mouse cursor was in
+     */
     private PsiClass getPsiClassFromContext(AnActionEvent e) {
         PsiFile psiFile = e.getData(LangDataKeys.PSI_FILE);
         Editor editor = e.getData(PlatformDataKeys.EDITOR);
