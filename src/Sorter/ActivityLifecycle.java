@@ -64,9 +64,9 @@ public class ActivityLifecycle implements Lifecycle{
             }
         }
 
-        for (Map.Entry<String, String> method : sortedMethods.entrySet()) {
+        /*for (Map.Entry<String, String> method : sortedMethods.entrySet()) {
             System.out.println(method.getValue());
-        }
+        }*/
 
         return sortedMethods;
     }

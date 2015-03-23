@@ -34,6 +34,7 @@ public class Sorter {
 
         Map<String, String> methods = new TreeMap<String, String>();
 
+        // TODO: Filter out parent class methods
         for (PsiMethod method : allMethods) {
             if (method != null) {
 
@@ -47,8 +48,18 @@ public class Sorter {
         }
 
         Map<String, String> sortedMethods = new ActivityLifecycle(methods).sort();
+        appendSortedMethods(sortedMethods);
 
+    }
 
+    private void appendSortedMethods(Map<String, String> sortedMethods) {
+        PsiElementFactory elementFactory = JavaPsiFacade.getElementFactory(mPsiClass.getProject());
+
+        for (Map.Entry<String, String> entry : sortedMethods.entrySet()) {
+
+            PsiMethod method = elementFactory.createMethodFromText(entry.getValue(), mPsiClass);
+            mPsiClass.add(method);
+        }
     }
 
 }
