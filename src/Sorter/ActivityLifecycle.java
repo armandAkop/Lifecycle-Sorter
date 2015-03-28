@@ -1,6 +1,9 @@
 package Sorter;
 
 import Lifecycle.Lifecycle;
+import Util.LifecycleUtils;
+import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiMethod;
 
 import java.util.ArrayList;
 import java.util.List;

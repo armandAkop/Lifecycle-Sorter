@@ -1,10 +1,9 @@
 package Sorter;
 
+import Util.LifecycleUtils;
 import com.intellij.psi.*;
 import com.intellij.util.IncorrectOperationException;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -30,27 +29,32 @@ public class Sorter {
      * Formats the activity/fragment lifecycle methods
      */
     public void sort() {
-        PsiMethod[] allMethods = mPsiClass.getAllMethods();
+        PsiMethod[] psiClassMethods = mPsiClass.getMethods();
 
         Map<String, String> methods = new TreeMap<String, String>();
 
         // TODO: Filter out parent class methods
-        for (PsiMethod method : allMethods) {
+        for (PsiMethod method : psiClassMethods) {
             if (method != null) {
 
                 methods.put(method.getName(), method.getText());
+
                 try {
-                    method.delete(); //AWESOME METHOD!!!
+                    method.delete();
                 }
                 catch (IncorrectOperationException e){}
            }
 
         }
 
-        Map<String, String> sortedMethods = new ActivityLifecycle(methods).sort();
-        appendSortedMethods(sortedMethods);
+        // Does our current class extend from Activity or Fragment?
+        if (LifecycleUtils.getLifeCycleType(mPsiClass) == LifecycleUtils.ACTIVITY) {
+            Map<String, String> sortedMethods = new ActivityLifecycle(methods).sort();
+            appendSortedMethods(sortedMethods);
+        }
 
     }
+
 
     private void appendSortedMethods(Map<String, String> sortedMethods) {
         PsiElementFactory elementFactory = JavaPsiFacade.getElementFactory(mPsiClass.getProject());
