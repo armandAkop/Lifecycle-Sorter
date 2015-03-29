@@ -14,7 +14,6 @@ import java.util.TreeMap;
 /**
  * This class determines if the current class is an Activity or a Fragment
  * and sorts the lifecycle methods based off that criteria.
- * TODO: Differentiate between activity and fragment
  */
 public class Sorter {
 
@@ -56,6 +55,10 @@ public class Sorter {
     }
 
 
+    /**
+     * Appends the sorted methods to the end of the file
+     * @param sortedMethods The sorted methods to append
+     */
     private void appendSortedMethods(Map<String, String> sortedMethods) {
         PsiElementFactory elementFactory = JavaPsiFacade.getElementFactory(mPsiClass.getProject());
 

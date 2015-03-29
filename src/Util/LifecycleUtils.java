@@ -14,19 +14,21 @@ public class LifecycleUtils {
     public static final int FRAGMENT = 2;
 
 
-    private static List<String> sActivityPackageNames = new ArrayList<String>();
+    private static final List<String> ACTIVITY_PACKAGE_NAMES = new ArrayList<String>();
 
     static {
-
-        sActivityPackageNames.add("android.app.Activity");
+        ACTIVITY_PACKAGE_NAMES.add("android.app.Activity");
     }
 
 
-    private static List<String> sFragmentPackageNames = new ArrayList<String>();
+    /**
+     * The fragment package names and the support libraries that come with it.
+     */
+    private static final List<String> FRAGMENT_PACKAGE_NAMES = new ArrayList<String>();
 
     static {
-        sFragmentPackageNames.add("android.app.Fragment");
-        sFragmentPackageNames.add("android.support.v4.app.Fragment");
+        FRAGMENT_PACKAGE_NAMES.add("android.app.Fragment");
+        FRAGMENT_PACKAGE_NAMES.add("android.support.v4.app.Fragment");
     }
 
     /**
@@ -43,14 +45,7 @@ public class LifecycleUtils {
      */
     public static int getLifeCycleType(PsiClass psiClass) {
         List<String> packages = buildSuperClassList(psiClass, new ArrayList<String>());
-
-        for (String s : packages) {
-            System.out.println("package is " + s);
-        }
-
-        int packageNum = resolvePackageToCompare(packages);
-        System.out.println("Package num is " + packageNum);
-        return packageNum;
+        return resolvePackageToCompare(packages);
 
     }
 
@@ -64,12 +59,12 @@ public class LifecycleUtils {
      * -1 if no inheritance matches are found.
      */
     private static int resolvePackageToCompare(List<String> superClassList) {
-        for (int i = 0; i < sActivityPackageNames.size(); i++) {
-            if (superClassList.contains(sActivityPackageNames.get(i))) return ACTIVITY;
+        for (int i = 0; i < ACTIVITY_PACKAGE_NAMES.size(); i++) {
+            if (superClassList.contains(ACTIVITY_PACKAGE_NAMES.get(i))) return ACTIVITY;
         }
 
-        for (int i = 0; i < sFragmentPackageNames.size(); i++) {
-            if (superClassList.contains(sFragmentPackageNames.get(i))) return FRAGMENT;
+        for (int i = 0; i < FRAGMENT_PACKAGE_NAMES.size(); i++) {
+            if (superClassList.contains(FRAGMENT_PACKAGE_NAMES.get(i))) return FRAGMENT;
         }
 
         return -1;
