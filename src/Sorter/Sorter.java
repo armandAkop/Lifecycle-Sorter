@@ -1,5 +1,6 @@
 package Sorter;
 
+import Lifecycle.ActivityLifecycle;
 import Util.LifecycleUtils;
 import com.intellij.psi.*;
 import com.intellij.util.IncorrectOperationException;
