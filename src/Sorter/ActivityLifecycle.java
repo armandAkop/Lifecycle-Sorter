@@ -5,10 +5,7 @@ import Util.LifecycleUtils;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiMethod;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Created by armand on 3/1/15.
@@ -54,7 +51,8 @@ public class ActivityLifecycle implements Lifecycle{
     @Override
     public Map<String, String> sort() {
 
-        Map<String, String> sortedMethods = new TreeMap<String, String>();
+        // LinkedHashMap because we must respect the ordering in which we insert
+        Map<String, String> sortedMethods = new LinkedHashMap<String, String>();
 
         for (int i = 0; i < mActivityLifecycleMethods.size(); i++) {
             String methodName = mActivityLifecycleMethods.get(i);
