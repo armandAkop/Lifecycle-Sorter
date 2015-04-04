@@ -1,6 +1,6 @@
 package Lifecycle;
 
-import Lifecycle.Lifecycle;
+import com.intellij.psi.PsiMethod;
 
 import java.util.*;
 
@@ -41,9 +41,9 @@ public class ActivityLifecycle implements Lifecycle{
      * The key is the method name, and the value is the entire method represented as a String,
      * such as any Annotations, signature, accessors, method body, etc.
      */
-    private Map<String, String> mMethods;
+    private Map<String, PsiMethod> mMethods;
 
-    public ActivityLifecycle(Map<String, String> methods) {
+    public ActivityLifecycle(Map<String, PsiMethod> methods) {
         this.mMethods = methods;
     }
 
@@ -53,14 +53,14 @@ public class ActivityLifecycle implements Lifecycle{
      * sort order of ACTIVITY_LIFECYCLE_METHODS
      */
     @Override
-    public Map<String, String> sort() {
+    public Map<String, PsiMethod> sort() {
 
         // LinkedHashMap because we must respect the ordering in which we insert
-        Map<String, String> sortedMethods = new LinkedHashMap<String, String>();
+        Map<String, PsiMethod> sortedMethods = new LinkedHashMap<String, PsiMethod>();
 
         for (int i = 0; i < ACTIVITY_LIFECYCLE_METHODS.size(); i++) {
             String methodName = ACTIVITY_LIFECYCLE_METHODS.get(i);
-            String method = mMethods.get(methodName);
+            PsiMethod method = mMethods.remove(methodName);
 
             if (method != null) {
                 sortedMethods.put(methodName, method);
@@ -69,4 +69,5 @@ public class ActivityLifecycle implements Lifecycle{
 
         return sortedMethods;
     }
+
 }

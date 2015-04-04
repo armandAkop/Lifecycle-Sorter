@@ -1,10 +1,13 @@
 package Sorter;
 
 import Lifecycle.ActivityLifecycle;
+import Lifecycle.FragmentLifecycle;
 import Util.LifecycleUtils;
 import com.intellij.psi.*;
+import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.IncorrectOperationException;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -31,41 +34,48 @@ public class Sorter {
     public void sort() {
         PsiMethod[] psiClassMethods = mPsiClass.getMethods();
 
-        Map<String, String> methods = new TreeMap<String, String>();
+        Map<String, PsiMethod> methods = new TreeMap<String, PsiMethod>();
 
-        // TODO: Filter out parent class methods
         for (PsiMethod method : psiClassMethods) {
             if (method != null) {
-
-                methods.put(method.getName(), method.getText());
-
-                try {
-                    method.delete();
-                }
-                catch (IncorrectOperationException e){}
-           }
-
+                methods.put(method.getName(), method);
+            }
         }
+
+        Map<String, PsiMethod> sortedMethods = null;
 
         // Does our current class extend from Activity or Fragment?
         if (LifecycleUtils.getLifeCycleType(mPsiClass) == LifecycleUtils.ACTIVITY) {
-            Map<String, String> sortedMethods = new ActivityLifecycle(methods).sort();
-            appendSortedMethods(sortedMethods);
+            sortedMethods = new ActivityLifecycle(methods).sort();
+        } else if (LifecycleUtils.getLifeCycleType(mPsiClass) == LifecycleUtils.FRAGMENT) {
+            sortedMethods = new FragmentLifecycle(methods).sort();
         }
+
+        appendSortedMethods(sortedMethods);
+
+        // After obtaining and appending the new sorted list of PsiMethods,
+        // we must remove the old methods
+        deletePsiMethods(sortedMethods.values());
 
     }
 
 
     /**
+     * Removes the collection of PsiMethods from the PsiClass
+     * @param methods the methods to remove from the PsiClass
+     */
+    private void deletePsiMethods(Collection<PsiMethod> methods) {
+        for (PsiMethod method : methods) method.delete();
+    }
+
+
+    /**
      * Appends the sorted methods to the end of the file
+     *
      * @param sortedMethods The sorted methods to append
      */
-    private void appendSortedMethods(Map<String, String> sortedMethods) {
-        PsiElementFactory elementFactory = JavaPsiFacade.getElementFactory(mPsiClass.getProject());
-
-        for (Map.Entry<String, String> entry : sortedMethods.entrySet()) {
-
-            PsiMethod method = elementFactory.createMethodFromText(entry.getValue(), mPsiClass);
+    private void appendSortedMethods(Map<String, PsiMethod> sortedMethods) {
+        for (PsiMethod method : sortedMethods.values()) {
             mPsiClass.add(method);
         }
     }

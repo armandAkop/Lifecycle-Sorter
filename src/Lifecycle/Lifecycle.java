@@ -1,5 +1,7 @@
 package Lifecycle;
 
+import com.intellij.psi.PsiMethod;
+
 import java.util.Map;
 
 /**
@@ -9,5 +11,5 @@ import java.util.Map;
  * determine the ordering of the Lifecycle.
  */
 public interface Lifecycle {
-    public Map<String, String> sort();
+    public Map<String, PsiMethod> sort();
 }
