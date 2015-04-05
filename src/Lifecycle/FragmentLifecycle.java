@@ -3,14 +3,13 @@ package Lifecycle;
 import com.intellij.psi.PsiMethod;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Created by armand on 3/29/15.
  */
-public class FragmentLifecycle implements Lifecycle {
+public class FragmentLifecycle extends Lifecycle {
 
     /**
      * Fragment Lifecycle method names
@@ -47,38 +46,9 @@ public class FragmentLifecycle implements Lifecycle {
         FRAGMENT_LIFECYCLE_METHODS.add(ON_DETACH);
     }
 
-    /**
-     * A Map representing the Fragment lifecycle methods.
-     * The key is the method name, and the value is the entire method represented as a String,
-     * such as any Annotations, signature, accessors, method body, etc.
-     */
-    private Map<String, PsiMethod> mMethods;
-
     public FragmentLifecycle(Map<String, PsiMethod> methods) {
-        this.mMethods = methods;
+        super(methods);
+        mLifecycleOrdering = FRAGMENT_LIFECYCLE_METHODS;
     }
 
-    /**
-     * Sorts the lifecycle methods provided
-     * @return A Map of the method names and entire method definitions, respecting the
-     * sort order of FRAGMENT_LIFECYCLE_METHODS
-     */
-
-    @Override
-    public Map<String, PsiMethod> sort() {
-
-        // LinkedHashMap because we must respect the ordering in which we insert
-        Map<String, PsiMethod> sortedMethods = new LinkedHashMap<String, PsiMethod>();
-
-        for (int i = 0; i < FRAGMENT_LIFECYCLE_METHODS.size(); i++) {
-            String methodName = FRAGMENT_LIFECYCLE_METHODS.get(i);
-            PsiMethod method = mMethods.get(methodName);
-
-            if (method != null) {
-                sortedMethods.put(methodName, method);
-            }
-        }
-
-        return sortedMethods;
-    }
 }

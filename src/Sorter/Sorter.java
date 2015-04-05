@@ -1,11 +1,8 @@
 package Sorter;
 
-import Lifecycle.ActivityLifecycle;
-import Lifecycle.FragmentLifecycle;
-import Util.LifecycleUtils;
+import Lifecycle.Lifecycle;
+import Lifecycle.LifecycleFactory;
 import com.intellij.psi.*;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.util.IncorrectOperationException;
 
 import java.util.Collection;
 import java.util.Map;
@@ -44,18 +41,17 @@ public class Sorter {
 
         Map<String, PsiMethod> sortedMethods = null;
 
-        // Does our current class extend from Activity or Fragment?
-        if (LifecycleUtils.getLifeCycleType(mPsiClass) == LifecycleUtils.ACTIVITY) {
-            sortedMethods = new ActivityLifecycle(methods).sort();
-        } else if (LifecycleUtils.getLifeCycleType(mPsiClass) == LifecycleUtils.FRAGMENT) {
-            sortedMethods = new FragmentLifecycle(methods).sort();
+        LifecycleFactory lifecycleFactory = new LifecycleFactory();
+        Lifecycle lifecycle = lifecycleFactory.createLifecycle(mPsiClass, methods);
+
+        if (lifecycle != null) {
+            sortedMethods = lifecycle.sort();
+            appendSortedMethods(sortedMethods);
+
+            // After obtaining and appending the new sorted list of PsiMethods,
+            // we must remove the old, unsorted list
+            deleteUnsortedLifecycleMethods(sortedMethods.values());
         }
-
-        appendSortedMethods(sortedMethods);
-
-        // After obtaining and appending the new sorted list of PsiMethods,
-        // we must remove the old methods
-        deletePsiMethods(sortedMethods.values());
 
     }
 
@@ -64,7 +60,7 @@ public class Sorter {
      * Removes the collection of PsiMethods from the PsiClass
      * @param methods the methods to remove from the PsiClass
      */
-    private void deletePsiMethods(Collection<PsiMethod> methods) {
+    private void deleteUnsortedLifecycleMethods(Collection<PsiMethod> methods) {
         for (PsiMethod method : methods) method.delete();
     }
 
