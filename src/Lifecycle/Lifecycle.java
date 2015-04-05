@@ -19,7 +19,7 @@ public abstract class Lifecycle {
      * The key is the method name, and the value is the entire method represented as a String,
      * such as any Annotations, signature, accessors, method body, etc.
      */
-    private Map<String, PsiMethod> mMethods;
+    private Map<String, PsiMethod> mAllMethods;
 
     /**
      * A List containing the proper ordering of the lifecycle methods, whether it's
@@ -29,7 +29,7 @@ public abstract class Lifecycle {
 
 
     public Lifecycle(Map<String, PsiMethod> methods) {
-        this.mMethods = methods;
+        this.mAllMethods = methods;
     }
 
 
@@ -45,7 +45,7 @@ public abstract class Lifecycle {
 
         for (int i = 0; i < mLifecycleOrdering.size(); i++) {
             String methodName = mLifecycleOrdering.get(i);
-            PsiMethod method = mMethods.get(methodName);
+            PsiMethod method = mAllMethods.get(methodName);
 
             if (method != null) {
                 sortedMethods.put(methodName, method);
