@@ -39,7 +39,8 @@
   <actions>
     <!-- Add your actions here -->
       <action class="Action.SortAction" id="sorter" text="Sort Lifecycle Methods">
-          <add-to-group group-id="ToolsMenu" anchor="last"/>
+          <add-to-group group-id="CodeMenu" anchor="last"/>
+          <keyboard-shortcut first-keystroke="control alt K" keymap="$default"/>
       </action>
   </actions>
 
