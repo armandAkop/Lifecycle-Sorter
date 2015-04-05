@@ -1,17 +1,16 @@
 <idea-plugin version="2">
-  <id>com.yourcompany.unique.plugin.id</id>
-  <name>Plugin display name here</name>
+  <id>com.armandakopian.lifecyclesorter</id>
+  <name>Lifecycle Sorter</name>
   <version>1.0</version>
-  <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+  <vendor email="armand.akopyan@gmail.com">Armand Akopian</vendor>
 
   <description><![CDATA[
-      Enter short description for your plugin here.<br>
-      <em>most HTML tags may be used</em>
+      Sorts the lifecycle methods of an Activity or a Fragment in the order that they are called in your application.<br>
+      <a href="https://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle">Activity Lifecycle</a><br>
+      <a href="https://developer.android.com/reference/android/app/Fragment.html#Lifecycle">Fragment Lifecycle</a><br>
     ]]></description>
 
   <change-notes><![CDATA[
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>
     ]]>
   </change-notes>
 
