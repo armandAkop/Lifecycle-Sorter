@@ -17,7 +17,9 @@ public class FragmentLifecycle extends Lifecycle {
     private static final String ON_ATTACH = "onAttach";
     private static final String ON_CREATE = "onCreate";
     private static final String ON_CREATE_VIEW = "onCreateView";
+    private static final String ON_VIEW_CREATED = "onViewCreated";
     private static final String ON_ACTIVITY_CREATED = "onActivityCreated";
+    private static final String ON_VIEW_STATE_RESTORED = "onViewStateRestored";
     private static final String ON_START = "onStart";
     private static final String ON_RESUME = "onResume";
     private static final String ON_PAUSE = "onPause";
@@ -36,7 +38,9 @@ public class FragmentLifecycle extends Lifecycle {
         FRAGMENT_LIFECYCLE_METHODS.add(ON_ATTACH);
         FRAGMENT_LIFECYCLE_METHODS.add(ON_CREATE);
         FRAGMENT_LIFECYCLE_METHODS.add(ON_CREATE_VIEW);
+        FRAGMENT_LIFECYCLE_METHODS.add(ON_VIEW_CREATED);
         FRAGMENT_LIFECYCLE_METHODS.add(ON_ACTIVITY_CREATED);
+        FRAGMENT_LIFECYCLE_METHODS.add(ON_VIEW_STATE_RESTORED);
         FRAGMENT_LIFECYCLE_METHODS.add(ON_START);
         FRAGMENT_LIFECYCLE_METHODS.add(ON_RESUME);
         FRAGMENT_LIFECYCLE_METHODS.add(ON_PAUSE);
