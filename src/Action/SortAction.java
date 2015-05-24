@@ -10,6 +10,9 @@ import Sorter.Sorter;
  * Created by armand on 3/1/15.
  */
 public class SortAction extends AnAction {
+    
+    protected Sorter.SortPosition mSortPosition;
+
     @Override
     public void actionPerformed(AnActionEvent e) {
 
@@ -21,13 +24,11 @@ public class SortAction extends AnAction {
 
     }
 
-
-
     private void sortLifecycleMethods(final PsiClass psiClass) {
         new WriteCommandAction.Simple(psiClass.getProject(), psiClass.getContainingFile()) {
             @Override
             protected void run() throws Throwable {
-                new Sorter(psiClass).sort();
+                new Sorter(psiClass, mSortPosition).sort();
 
             }
         }.execute();
@@ -40,7 +41,7 @@ public class SortAction extends AnAction {
      * @param e the action event that occurred
      * @return The PSIClass object based on which class your mouse cursor was in
      */
-    private PsiClass getPsiClassFromContext(AnActionEvent e) {
+    protected PsiClass getPsiClassFromContext(AnActionEvent e) {
         PsiFile psiFile = e.getData(LangDataKeys.PSI_FILE);
         Editor editor = e.getData(PlatformDataKeys.EDITOR);
 
