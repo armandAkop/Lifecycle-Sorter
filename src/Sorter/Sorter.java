@@ -53,7 +53,7 @@ public class Sorter {
         LifecycleFactory lifecycleFactory = new LifecycleFactory();
         Lifecycle lifecycle = lifecycleFactory.createLifecycle(mPsiClass, methods);
 
-        if (lifecycle != null) {
+        if (lifecycle != null && !methods.isEmpty()) {
             sortedMethods = lifecycle.sort();
             appendSortedMethods(sortedMethods);
 
