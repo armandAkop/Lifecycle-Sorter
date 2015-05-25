@@ -1,6 +1,6 @@
 package Action;
 
-import Sorter.Sorter;
+import Sort.Sorter;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 
 /**

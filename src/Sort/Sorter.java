@@ -1,4 +1,4 @@
-package Sorter;
+package Sort;
 
 import Lifecycle.Lifecycle;
 import Lifecycle.LifecycleFactory;
@@ -8,7 +8,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * Created by armand on 3/1/15.

@@ -5,7 +5,7 @@ import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.psi.*;
 import com.intellij.psi.util.PsiTreeUtil;
-import Sorter.Sorter;
+import Sort.Sorter;
 /**
  * Created by armand on 3/1/15.
  */
@@ -29,7 +29,6 @@ public class SortAction extends AnAction {
             @Override
             protected void run() throws Throwable {
                 new Sorter(psiClass, mSortPosition).sort();
-
             }
         }.execute();
 
