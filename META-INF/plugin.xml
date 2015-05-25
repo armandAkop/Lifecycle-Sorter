@@ -36,13 +36,13 @@
     </project-components>
 
     <actions>
-        <group id="sorter" text="Sort Lifecycle Methods" popup="true">
+        <group id="sorter" text="Sort Lifecycle Methods" popup="true" description="Sorts the lifecycle methods of an activity">
 
-            <action class="Action.SortStartAction" id="sortStart" text="Insert at start">
+            <action class="Action.SortStartAction" id="sortStart" text="Place at Start of Class" description="Places the sorted methods at the start of the class">
                 <keyboard-shortcut first-keystroke="control alt K" keymap="$default"/>
             </action>
 
-            <action class="Action.SortEndAction" id="sortEnd" text="Insert at end">
+            <action class="Action.SortEndAction" id="sortEnd" text="Place at End of Class" description="Places the sorted methods at the end of the class">
                 <keyboard-shortcut first-keystroke="shift control alt K" keymap="$default"/>
             </action>
 
