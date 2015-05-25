@@ -12,10 +12,10 @@ All you need to do is place the cursor inside of your class and select "Sort Lif
 the keyboard shortcut control+alt+k. It's as simple as that!</p>
 
 <h3>Activity before sorting</h3>
-<img src="https://i.imgur.com/2KubkH4.png"/>
+<img src="http://i.imgur.com/ACAEqD5.png"/>
 
 <h3>Activity after sorting<h3>
-<img src="https://i.imgur.com/gYsLbQo.png"/>
+<img src="http://i.imgur.com/2wsuGUX.png"/>
 
 
 <p>This is my first plugin and thought it would be a handy tool, not only for myself but other Android developers. 
