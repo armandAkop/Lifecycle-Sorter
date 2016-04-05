@@ -8,7 +8,7 @@ import java.util.Map;
 
 /**
  * Created by armand on 3/15/15.
- *
+ * <p>
  * Abstract class that represents a Lifecycle (could be an Activity/Fragment/etc).
  */
 public abstract class Lifecycle {
@@ -35,6 +35,7 @@ public abstract class Lifecycle {
 
     /**
      * Sorts the lifecycle methods provided
+     *
      * @return A Map of the method names and entire method definitions, respecting the
      * sort order of mLifecycleOrdering
      */

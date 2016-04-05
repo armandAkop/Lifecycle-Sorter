@@ -9,6 +9,8 @@ import java.util.*;
  */
 public class ActivityLifecycle extends Lifecycle {
 
+    private static final boolean SORT_NON_LIFECYCLE_METHODS = true;
+
     /**
      * Activity Lifecycle method names
      */
@@ -16,9 +18,21 @@ public class ActivityLifecycle extends Lifecycle {
     private static final String ON_RESTART = "onRestart";
     private static final String ON_START = "onStart";
     private static final String ON_RESUME = "onResume";
+    private static final String ON_POST_RESUME = "onPostResume";
     private static final String ON_PAUSE = "onPause";
     private static final String ON_STOP = "onStop";
     private static final String ON_DESTROY = "onDestroy";
+    private static final String ON_NEW_INTENT = "onNewIntent";
+
+    /**
+     * Activity non-Lifecycle method names
+     */
+    private static final String ON_RESTORE_INSTANCE_STATE = "onRestoreInstanceState";
+    private static final String ON_SAVE_INSTANCE_STATE = "onSaveInstanceState";
+    private static final String ON_CREATE_OPTIONS_MENU = "onCreateOptionsMenu";
+    private static final String ON_OPTIONS_ITEM_SELECTED = "onOptionsItemSelected";
+    private static final String ON_ACTIVITY_RESULT = "onActivityResult";
+    private static final String ON_BACK_PRESSED = "onBackPressed";
 
 
     /**
@@ -31,15 +45,35 @@ public class ActivityLifecycle extends Lifecycle {
         ACTIVITY_LIFECYCLE_METHODS.add(ON_RESTART);
         ACTIVITY_LIFECYCLE_METHODS.add(ON_START);
         ACTIVITY_LIFECYCLE_METHODS.add(ON_RESUME);
+        ACTIVITY_LIFECYCLE_METHODS.add(ON_POST_RESUME);
         ACTIVITY_LIFECYCLE_METHODS.add(ON_PAUSE);
         ACTIVITY_LIFECYCLE_METHODS.add(ON_STOP);
         ACTIVITY_LIFECYCLE_METHODS.add(ON_DESTROY);
+        ACTIVITY_LIFECYCLE_METHODS.add(ON_NEW_INTENT);
+    }
+
+    /**
+     * The ordering of the Activity Lifecycle methods
+     */
+    private static final List<String> ACTIVITY_NON_LIFECYCLE_METHODS = new ArrayList<String>();
+
+    static {
+        ACTIVITY_NON_LIFECYCLE_METHODS.add(ON_ACTIVITY_RESULT);
+        ACTIVITY_NON_LIFECYCLE_METHODS.add(ON_CREATE_OPTIONS_MENU);
+        ACTIVITY_NON_LIFECYCLE_METHODS.add(ON_OPTIONS_ITEM_SELECTED);
+        ACTIVITY_NON_LIFECYCLE_METHODS.add(ON_SAVE_INSTANCE_STATE);
+        ACTIVITY_NON_LIFECYCLE_METHODS.add(ON_RESTORE_INSTANCE_STATE);
+        ACTIVITY_NON_LIFECYCLE_METHODS.add(ON_BACK_PRESSED);
     }
 
 
     public ActivityLifecycle(Map<String, PsiMethod> methods) {
         super(methods);
         mLifecycleOrdering = ACTIVITY_LIFECYCLE_METHODS;
+
+        if (SORT_NON_LIFECYCLE_METHODS) {
+            mLifecycleOrdering.addAll(ACTIVITY_NON_LIFECYCLE_METHODS);
+        }
     }
 
 }
