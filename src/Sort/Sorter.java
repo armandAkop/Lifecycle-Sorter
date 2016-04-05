@@ -65,6 +65,7 @@ public class Sorter {
 
     /**
      * Generates a Map of all the methods in the current class
+     *
      * @return a Map of all the methods in the current class
      */
     @NotNull
@@ -101,17 +102,21 @@ public class Sorter {
 
         switch (mSortPosition) {
             case START:
-                appendToStart(sortedMethods); break;
+                appendToStart(sortedMethods);
+                break;
             case END:
-                appendToEnd(sortedMethods); break;
+                appendToEnd(sortedMethods);
+                break;
             default:
-                appendToStart(sortedMethods); break;
+                appendToStart(sortedMethods);
+                break;
         }
 
     }
 
     /**
      * Appends the sorted lifecycle methods to the end of the class.
+     *
      * @param sortedMethods The sorted lifecycle methods
      */
     private void appendToEnd(Map<String, PsiMethod> sortedMethods) {
@@ -122,6 +127,7 @@ public class Sorter {
 
     /**
      * Appends the sorted lifecycle methods to the start of the class.
+     *
      * @param sortedMethods The sorted lifecycle methods
      */
     private void appendToStart(Map<String, PsiMethod> sortedMethods) {

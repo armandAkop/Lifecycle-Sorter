@@ -6,11 +6,12 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.psi.*;
 import com.intellij.psi.util.PsiTreeUtil;
 import Sort.Sorter;
+
 /**
  * Created by armand on 3/1/15.
  */
 public class SortAction extends AnAction {
-    
+
     protected Sorter.SortPosition mSortPosition;
 
     @Override
