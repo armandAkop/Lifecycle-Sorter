@@ -2,7 +2,7 @@
     <id>com.armandakopian.lifecyclesorter</id>
     <name>Lifecycle Sorter</name>
     <version>1.2.1</version>
-    <vendor email="kevin.bojarski@gmail.com">Armand Akopian</vendor>
+    <vendor email="kevin.bojarski@gmail.com">Kevin Bojarski</vendor>
 
     <description><![CDATA[
       Sorts the lifecycle methods of an Activity or a Fragment in the order that they are called in your application.<br>
