@@ -1,5 +1,7 @@
 package Lifecycle;
 
+
+import Settings.SettingsUtils;
 import com.intellij.psi.PsiMethod;
 
 import java.util.*;
@@ -8,8 +10,6 @@ import java.util.*;
  * Created by armand on 3/1/15.
  */
 public class ActivityLifecycle extends Lifecycle {
-
-    private static final boolean SORT_NON_LIFECYCLE_METHODS = true;
 
     /**
      * Activity Lifecycle method names
@@ -33,6 +33,22 @@ public class ActivityLifecycle extends Lifecycle {
     private static final String ON_OPTIONS_ITEM_SELECTED = "onOptionsItemSelected";
     private static final String ON_ACTIVITY_RESULT = "onActivityResult";
     private static final String ON_BACK_PRESSED = "onBackPressed";
+
+
+    public static List<String> getActivityLifecycleMethods() {
+        return ACTIVITY_LIFECYCLE_METHODS;
+    }
+
+    public static List<String> getActivityNonLifecycleMethods() {
+        return ACTIVITY_NON_LIFECYCLE_METHODS;
+    }
+
+    public static List<String> getAllActivityMethods() {
+        List<String> result = new ArrayList<String>();
+        result.addAll(getActivityLifecycleMethods());
+        result.addAll(getActivityNonLifecycleMethods());
+        return result;
+    }
 
 
     /**
@@ -71,9 +87,9 @@ public class ActivityLifecycle extends Lifecycle {
         super(methods);
         mLifecycleOrdering = ACTIVITY_LIFECYCLE_METHODS;
 
-        if (SORT_NON_LIFECYCLE_METHODS) {
-            mLifecycleOrdering.addAll(ACTIVITY_NON_LIFECYCLE_METHODS);
+        List<String> activeMethods = SettingsUtils.getActiveMethodsList();
+        if (activeMethods != null && !activeMethods.isEmpty()) {
+            mLifecycleOrdering = SettingsUtils.getActiveMethodsList();
         }
     }
-
 }

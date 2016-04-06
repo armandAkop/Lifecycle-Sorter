@@ -1,7 +1,7 @@
 <idea-plugin version="2">
-    <id>com.armandakopian.lifecyclesorter</id>
-    <name>Lifecycle Sorter</name>
-    <version>1.2.1</version>
+    <id>com.kevin.bojarski.lifecyclesorterplus</id>
+    <name>Lifecycle Sorter+</name>
+    <version>1.3</version>
     <vendor email="kevin.bojarski@gmail.com">Kevin Bojarski</vendor>
 
     <description><![CDATA[
@@ -36,15 +36,21 @@
     </project-components>
 
     <actions>
-        <group id="sorter" text="Sort Lifecycle Methods" popup="true"
+        <group id="sorter"
+               text="Sort Lifecycle Methods"
+               popup="true"
                description="Sorts the lifecycle methods of an activity">
 
-            <action class="Action.SortStartAction" id="sortStart" text="Place at Start of Class"
+            <action class="Action.SortStartAction"
+                    id="sortStart"
+                    text="Place at Start of Class"
                     description="Places the sorted methods at the start of the class">
                 <keyboard-shortcut first-keystroke="control alt K" keymap="$default"/>
             </action>
 
-            <action class="Action.SortEndAction" id="sortEnd" text="Place at End of Class"
+            <action class="Action.SortEndAction"
+                    id="sortEnd"
+                    text="Place at End of Class"
                     description="Places the sorted methods at the end of the class">
                 <keyboard-shortcut first-keystroke="shift control alt K" keymap="$default"/>
             </action>
@@ -54,5 +60,8 @@
         </group>
 
     </actions>
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationConfigurable instance="Settings.Settings"/>
+    </extensions>
 
 </idea-plugin>
