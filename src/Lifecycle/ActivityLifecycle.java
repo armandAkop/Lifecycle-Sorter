@@ -92,4 +92,25 @@ public class ActivityLifecycle extends Lifecycle {
             mLifecycleOrdering = SettingsUtils.getActiveMethodsList();
         }
     }
+
+    /**
+     * check is the method name exists in the list of lifecycle methods
+     *
+     * @param method
+     * @return
+     */
+    public static boolean isLifecycleMethod(String method) {
+        return getActivityLifecycleMethods().contains(method);
+    }
+
+    /**
+     * check is the method name exists in the list of lifecycle and non-lifecycle methods
+     *
+     * @param method
+     * @return
+     */
+    public static boolean isBuiltInMethod(String method) {
+        return getActivityLifecycleMethods().contains(method) && getActivityNonLifecycleMethods().contains(method);
+    }
+
 }
