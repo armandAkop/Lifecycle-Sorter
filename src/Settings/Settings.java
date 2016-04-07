@@ -70,6 +70,9 @@ public class Settings implements Configurable {
 
         if (addedCustomMethods.size() > 0 || removedCustomMethods.size() > 0) {
             List<String> currentCustomMethods = SettingsUtils.getCustomMethodsList();
+            if (currentCustomMethods == null) {
+                currentCustomMethods = new ArrayList<String>();
+            }
             currentCustomMethods.addAll(addedCustomMethods);
             currentCustomMethods.removeAll(removedCustomMethods);
             SettingsUtils.setCustomMethodList(currentCustomMethods);
@@ -198,15 +201,10 @@ public class Settings implements Configurable {
                     leftList.clearSelection();
                     int selected = rightList.getSelectedIndex();
 
+                    updateRemoveButton(activeMethodsList.get(selected));
                     moveRightButton.setEnabled(false);
                     moveLeftButton.setEnabled(true);
 
-                    if (selected >= 0) {
-                        String selectedMethod = activeMethodsList.get(selected);
-                        removeMethodButton.setEnabled(SettingsUtils.isCustomMethodExists(selectedMethod));
-                    } else {
-                        removeMethodButton.setEnabled(false);
-                    }
 
                     if (isSelectedActiveLifecycleMethod()) {
                         moveUpButton.setEnabled(false);
@@ -236,19 +234,26 @@ public class Settings implements Configurable {
                 if (!e.getValueIsAdjusting() && !leftList.isSelectionEmpty()) {
                     rightList.clearSelection();
 
+                    int selected = leftList.getSelectedIndex();
+                    updateRemoveButton(inactiveMethodsList.get(selected));
                     moveRightButton.setEnabled(true);
                     moveLeftButton.setEnabled(false);
 
-                    int selected = leftList.getSelectedIndex();
-                    if (selected >= 0) {
-                        String selectedMethod = inactiveMethodsList.get(selected);
-                        removeMethodButton.setEnabled(SettingsUtils.isCustomMethodExists(selectedMethod));
-                    } else {
-                        removeMethodButton.setEnabled(false);
-                    }
                 }
             }
         });
+    }
+
+    private void updateRemoveButton(String method) {
+        if (!TextUtils.isEmpty(method)) {
+            if (SettingsUtils.isCustomMethodExists(method) || addedCustomMethods.contains(method)) {
+                removeMethodButton.setEnabled(true);
+            } else {
+                removeMethodButton.setEnabled(false);
+            }
+        } else {
+            removeMethodButton.setEnabled(false);
+        }
     }
 
     /**
