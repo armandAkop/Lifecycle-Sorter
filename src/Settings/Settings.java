@@ -292,7 +292,7 @@ public class Settings implements Configurable {
             if (selected < activeMethodsList.size()) {
                 Collections.swap(activeMethodsList, selected, selected + 1);
                 onListChanged();
-                //TODO reselect item
+                rightList.setSelectedIndex(selected + 1);
             }
         }
     }
@@ -304,9 +304,13 @@ public class Settings implements Configurable {
         if (!rightList.isSelectionEmpty()) {
             int selected = rightList.getSelectedIndex();
             if (selected > 0) {
-                Collections.swap(activeMethodsList, selected, selected - 1);
-                onListChanged();
-                //TODO reselect item
+                String aboveMethod = activeMethodsList.get(selected - 1);
+                //do not attempt move if swapping with lifecycle method
+                if (!ActivityLifecycle.isLifecycleMethod(aboveMethod)) {
+                    Collections.swap(activeMethodsList, selected, selected - 1);
+                    onListChanged();
+                    rightList.setSelectedIndex(selected - 1);
+                }
             }
         }
     }
