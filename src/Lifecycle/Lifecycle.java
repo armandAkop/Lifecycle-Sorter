@@ -1,6 +1,9 @@
 package Lifecycle;
 
+import Settings.SettingsUtils;
+import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiMethod;
+import org.apache.http.util.TextUtils;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -8,7 +11,7 @@ import java.util.Map;
 
 /**
  * Created by armand on 3/15/15.
- *
+ * <p>
  * Abstract class that represents a Lifecycle (could be an Activity/Fragment/etc).
  */
 public abstract class Lifecycle {
@@ -27,14 +30,17 @@ public abstract class Lifecycle {
      */
     protected List<String> mLifecycleOrdering;
 
+    private PsiClass psiClass;
 
-    public Lifecycle(Map<String, PsiMethod> methods) {
+
+    public Lifecycle(PsiClass psiClass, Map<String, PsiMethod> methods) {
         this.mAllMethods = methods;
+        this.psiClass = psiClass;
     }
-
 
     /**
      * Sorts the lifecycle methods provided
+     *
      * @return A Map of the method names and entire method definitions, respecting the
      * sort order of mLifecycleOrdering
      */
@@ -42,6 +48,15 @@ public abstract class Lifecycle {
 
         // LinkedHashMap because we must respect the ordering in which we insert
         Map<String, PsiMethod> sortedMethods = new LinkedHashMap<String, PsiMethod>();
+
+        if (SettingsUtils.getConstructorsAboveAll()) {
+            PsiMethod[] constructors = psiClass.getConstructors();
+            if (constructors.length > 0) {
+                for (PsiMethod constructor : constructors) {
+                    sortedMethods.put(psiClass.getName(), constructor);
+                }
+            }
+        }
 
         for (int i = 0; i < mLifecycleOrdering.size(); i++) {
             String methodName = mLifecycleOrdering.get(i);
