@@ -1,7 +1,7 @@
 <idea-plugin version="2">
     <id>com.kevin.bojarski.lifecyclesorterplus</id>
     <name>Lifecycle Sorter+</name>
-    <version>2.0</version>
+    <version>2.1</version>
     <vendor email="kevin.bojarski@gmail.com">Kevin Bojarski</vendor>
 
     <description><![CDATA[
