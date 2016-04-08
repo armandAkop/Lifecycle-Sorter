@@ -2,6 +2,7 @@ package Lifecycle;
 
 
 import Settings.SettingsUtils;
+import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiMethod;
 
 import java.util.*;
@@ -84,7 +85,7 @@ public class ActivityLifecycle extends Lifecycle {
 
 
     public ActivityLifecycle(Map<String, PsiMethod> methods) {
-        super(methods);
+        super(null, methods);
         mLifecycleOrdering = ACTIVITY_LIFECYCLE_METHODS;
 
         List<String> activeMethods = SettingsUtils.getActiveMethodsList();
@@ -92,6 +93,17 @@ public class ActivityLifecycle extends Lifecycle {
             mLifecycleOrdering = SettingsUtils.getActiveMethodsList();
         }
     }
+
+    public ActivityLifecycle(PsiClass psiClass, Map<String, PsiMethod> methods) {
+        super(psiClass, methods);
+        mLifecycleOrdering = ACTIVITY_LIFECYCLE_METHODS;
+
+        List<String> activeMethods = SettingsUtils.getActiveMethodsList();
+        if (activeMethods != null && !activeMethods.isEmpty()) {
+            mLifecycleOrdering = SettingsUtils.getActiveMethodsList();
+        }
+    }
+
 
     /**
      * check is the method name exists in the list of lifecycle methods

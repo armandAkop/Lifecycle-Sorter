@@ -15,10 +15,10 @@ public class LifecycleFactory {
         switch (LifecycleUtils.getLifeCycleType(psiClass)) {
 
             case LifecycleUtils.ACTIVITY:
-                return new ActivityLifecycle(methods);
+                return new ActivityLifecycle(psiClass, methods);
 
             case LifecycleUtils.FRAGMENT:
-                return new FragmentLifecycle(methods);
+                return new FragmentLifecycle(psiClass, methods);
 
             default:
                 return null;
