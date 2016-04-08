@@ -254,6 +254,8 @@ public class Settings implements Configurable {
                     updateRemoveButton(inactiveMethodsList.get(selected));
                     moveRightButton.setEnabled(true);
                     moveLeftButton.setEnabled(false);
+                    moveUpButton.setEnabled(false);
+                    moveDownButton.setEnabled(false);
 
                 }
             }
