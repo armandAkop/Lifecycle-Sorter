@@ -40,6 +40,7 @@ public class LifecycleUtils {
 
     /**
      * Checks a list of superclasses of a PsiClass against the Activity/Fragment classes and support classes.
+     *
      * @param psiClass
      * @return true if a match is found, false otherwise
      */
@@ -52,6 +53,7 @@ public class LifecycleUtils {
     /**
      * Cross checks the list of package names we've built up against the list of
      * Activity package names and list of Fragment package names.
+     *
      * @param superClassList The hierarchy of classes found from the current PsiClass
      * @return {@value #ACTIVITY} if the superClassList contains the appropriate package
      * name identifying that Activity has  been inherited, {@value #FRAGMENT} if the superClassList

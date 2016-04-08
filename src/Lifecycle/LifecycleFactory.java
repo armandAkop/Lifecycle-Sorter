@@ -20,7 +20,8 @@ public class LifecycleFactory {
             case LifecycleUtils.FRAGMENT:
                 return new FragmentLifecycle(methods);
 
-            default: return null;
+            default:
+                return null;
         }
     }
 }
