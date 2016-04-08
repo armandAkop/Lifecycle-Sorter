@@ -30,7 +30,7 @@ public class Settings implements Configurable {
     private JTextField addNewMethod;
     private JButton addNewMethodButton;
     private JLabel errorLabel;
-    private JLabel customLabel;
+    private JLabel addCustomMethodLabel;
     private JButton removeMethodButton;
     private JCheckBox placeConstructorsAboveLifecycleCheckBox;
 
@@ -279,7 +279,7 @@ public class Settings implements Configurable {
      */
     private void onListChanged() {
         modified = true;
-        sortLists();
+//        sortLists();
         updateLists();
     }
 
@@ -302,35 +302,83 @@ public class Settings implements Configurable {
     }
 
     /**
-     * move the currently selected item in the active list down one position
+     * move the currently selected item in the active list down one position or below lifecycle methods
      */
     private void onMoveDownClicked() {
         if (!rightList.isSelectionEmpty()) {
             int selected = rightList.getSelectedIndex();
             if (selected < activeMethodsList.size()) {
-                Collections.swap(activeMethodsList, selected, selected + 1);
-                onListChanged();
-                rightList.setSelectedIndex(selected + 1);
+                String belowMethod = activeMethodsList.get(selected + 1);
+
+                //move one position if method below is not a lifecycle method
+                if (!ActivityLifecycle.isLifecycleMethod(belowMethod)) {
+                    Collections.swap(activeMethodsList, selected, selected + 1);
+                    onListChanged();
+                    rightList.setSelectedIndex(selected + 1);
+                } else {//move below lifecycle methods
+                    int index = getLastActiveLifeCycleIndex();
+                    String method = activeMethodsList.get(selected);
+                    activeMethodsList.remove(method);
+                    activeMethodsList.add(index, method);
+                    onListChanged();
+                    rightList.setSelectedIndex(index);
+                }
             }
         }
     }
 
     /**
-     * move the currently selected item in the active list up one position
+     * move the currently selected item in the active list up one position or above lifecycle methods
      */
     private void onMoveUpClicked() {
         if (!rightList.isSelectionEmpty()) {
             int selected = rightList.getSelectedIndex();
             if (selected > 0) {
                 String aboveMethod = activeMethodsList.get(selected - 1);
-                //do not attempt move if swapping with lifecycle method
+
+                //move one position if method above is not a lifecycle method
                 if (!ActivityLifecycle.isLifecycleMethod(aboveMethod)) {
                     Collections.swap(activeMethodsList, selected, selected - 1);
                     onListChanged();
                     rightList.setSelectedIndex(selected - 1);
+                } else {//move above lifecycle methods
+                    int index = getFirstActiveLifeCycleIndex();
+                    String method = activeMethodsList.get(selected);
+                    activeMethodsList.remove(method);
+                    activeMethodsList.add(index, method);
+                    onListChanged();
+                    rightList.setSelectedIndex(index);
                 }
             }
         }
+    }
+
+    /**
+     * get the index of the first lifecycle method in the list of activly sorted methods
+     *
+     * @return
+     */
+    private int getFirstActiveLifeCycleIndex() {
+        for (int i = 0; i < activeMethodsList.size(); i++) {
+            if (getActivityLifecycleMethods().contains(activeMethodsList.get(i))) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * get the index of the last lifecycle method in the list of activly sorted methods
+     *
+     * @return
+     */
+    private int getLastActiveLifeCycleIndex() {
+        for (int i = activeMethodsList.size() - 1; i >= 0; i--) {
+            if (getActivityLifecycleMethods().contains(activeMethodsList.get(i))) {
+                return i;
+            }
+        }
+        return activeMethodsList.size() - 1;
     }
 
     /**
