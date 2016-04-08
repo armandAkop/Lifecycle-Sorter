@@ -51,11 +51,6 @@ public class FragmentLifecycle extends Lifecycle {
         FRAGMENT_LIFECYCLE_METHODS.add(ON_DETACH);
     }
 
-    public FragmentLifecycle(Map<String, PsiMethod> methods) {
-        super(methods);
-        mLifecycleOrdering = FRAGMENT_LIFECYCLE_METHODS;
-    }
-
     public FragmentLifecycle(PsiClass psiClass, Map<String, PsiMethod> methods) {
         super(psiClass, methods);
         mLifecycleOrdering = FRAGMENT_LIFECYCLE_METHODS;

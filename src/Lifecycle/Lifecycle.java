@@ -33,11 +33,6 @@ public abstract class Lifecycle {
     private PsiClass psiClass;
 
 
-    public Lifecycle(Map<String, PsiMethod> methods) {
-        this.mAllMethods = methods;
-    }
-
-
     public Lifecycle(PsiClass psiClass, Map<String, PsiMethod> methods) {
         this.mAllMethods = methods;
         this.psiClass = psiClass;

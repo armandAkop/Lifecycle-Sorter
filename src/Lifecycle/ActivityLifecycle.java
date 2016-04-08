@@ -83,17 +83,6 @@ public class ActivityLifecycle extends Lifecycle {
         ACTIVITY_NON_LIFECYCLE_METHODS.add(ON_BACK_PRESSED);
     }
 
-
-    public ActivityLifecycle(Map<String, PsiMethod> methods) {
-        super(null, methods);
-        mLifecycleOrdering = ACTIVITY_LIFECYCLE_METHODS;
-
-        List<String> activeMethods = SettingsUtils.getActiveMethodsList();
-        if (activeMethods != null && !activeMethods.isEmpty()) {
-            mLifecycleOrdering = SettingsUtils.getActiveMethodsList();
-        }
-    }
-
     public ActivityLifecycle(PsiClass psiClass, Map<String, PsiMethod> methods) {
         super(psiClass, methods);
         mLifecycleOrdering = ACTIVITY_LIFECYCLE_METHODS;

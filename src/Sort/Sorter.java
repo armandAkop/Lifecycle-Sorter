@@ -74,6 +74,7 @@ public class Sorter {
 
         Map<String, PsiMethod> methods = new LinkedHashMap<String, PsiMethod>();
 
+        //TODO overloaded methods are only added once, this only one is sorted
         for (PsiMethod method : psiClassMethods) {
             if (method != null) {
                 methods.put(method.getName(), method);
