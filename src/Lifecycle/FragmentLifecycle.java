@@ -1,5 +1,6 @@
 package Lifecycle;
 
+import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiMethod;
 
 import java.util.ArrayList;
@@ -52,6 +53,11 @@ public class FragmentLifecycle extends Lifecycle {
 
     public FragmentLifecycle(Map<String, PsiMethod> methods) {
         super(methods);
+        mLifecycleOrdering = FRAGMENT_LIFECYCLE_METHODS;
+    }
+
+    public FragmentLifecycle(PsiClass psiClass, Map<String, PsiMethod> methods) {
+        super(psiClass, methods);
         mLifecycleOrdering = FRAGMENT_LIFECYCLE_METHODS;
     }
 

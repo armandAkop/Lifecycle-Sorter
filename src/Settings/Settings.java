@@ -32,6 +32,7 @@ public class Settings implements Configurable {
     private JLabel errorLabel;
     private JLabel customLabel;
     private JButton removeMethodButton;
+    private JCheckBox placeConstructorsAboveLifecycleCheckBox;
 
     private List<String> removedCustomMethods;
     private List<String> addedCustomMethods;
@@ -67,6 +68,7 @@ public class Settings implements Configurable {
     @Override
     public void apply() throws ConfigurationException {
         SettingsUtils.setActiveMethodList(activeMethodsList);
+        SettingsUtils.setConstructorsAboveAll(placeConstructorsAboveLifecycleCheckBox.isSelected());
 
         if (addedCustomMethods.size() > 0 || removedCustomMethods.size() > 0) {
             List<String> currentCustomMethods = SettingsUtils.getCustomMethodsList();
@@ -90,6 +92,7 @@ public class Settings implements Configurable {
         initButtons();
         initButtonListeners();
         initListListeners();
+        initCheckBoxes();
         errorLabel.setVisible(false);
     }
 
@@ -125,6 +128,19 @@ public class Settings implements Configurable {
         moveLeftButton.setEnabled(false);
         moveRightButton.setEnabled(false);
         removeMethodButton.setEnabled(false);
+    }
+
+    /**
+     * set value and listeners for checkboxes
+     */
+    private void initCheckBoxes() {
+        placeConstructorsAboveLifecycleCheckBox.setSelected(SettingsUtils.getConstructorsAboveAll());
+        placeConstructorsAboveLifecycleCheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                modified = true;
+            }
+        });
     }
 
     /**

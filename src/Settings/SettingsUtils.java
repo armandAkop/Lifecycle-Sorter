@@ -15,6 +15,7 @@ public class SettingsUtils {
 
     private static final String SAVED_SORT_ORDER = "sort-list";
     private static final String CUSTOM_METHODS_SORT_LIST = "custom-methods-list";
+    private static final String CONSTRUCTORS_ABOVE_ALL = "constructors-above-all";
 
     /**
      * gets list of methods are are are to be sorted in proper order
@@ -162,6 +163,14 @@ public class SettingsUtils {
         List<String> values = getCustomMethodsList();
         values.clear();
         setCustomMethodList(values);
+    }
+
+    public static void setConstructorsAboveAll(boolean value) {
+        PropertiesComponent.getInstance().setValue(CONSTRUCTORS_ABOVE_ALL, value);
+    }
+
+    public static boolean getConstructorsAboveAll() {
+        return PropertiesComponent.getInstance().getBoolean(CONSTRUCTORS_ABOVE_ALL);
     }
 
 }
