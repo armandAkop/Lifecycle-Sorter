@@ -1,5 +1,7 @@
 # Lifecycle Sorter for Android Studio
 
+<b>Note:</b> This project is no longer maintained. Feel free to fork and fix issues/add enhancements.
+
 This plugin sorts the lifecycle methods of an Activity or Fragment in the order that they are called in an application.
   <ul>  
     <li> <a href="https://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle">Activity Lifecycle</a> </li>
